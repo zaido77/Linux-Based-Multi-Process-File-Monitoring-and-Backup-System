@@ -3,67 +3,65 @@
 #include <string.h>
 #include "backup.h"
 
-#define BACKUP_DIR "backup"
+#define BACKUP_DIR  "backup"
 #define FILE_CHUNK_SIZE 4096
 
 void backup_file(const char *sourceDir, const char *filename) {
-    char sourcePath[256];
-    char destPath[256];
+    int sourceLen = strlen(sourceDir) + strlen(filename) + 2; // +1 for '/', +1 for '\0'
+    int destLen   = strlen(BACKUP_DIR) + strlen(filename) + 2;
 
-    snprintf(sourcePath, sizeof(sourcePath), "%s/%s", sourceDir, filename);
-    snprintf(destPath, sizeof(destPath), "%s/%s", BACKUP_DIR, filename);
+    char *sourcePath = (char *)malloc(sourceLen);
+    char *destPath   = (char *)malloc(destLen);
 
-    FILE *src = fopen(sourcePath, "rb");
-    if (src == NULL) {
-        printf("[ERROR] File not found: %s\n", sourcePath);
+    if (sourcePath == NULL || destPath == NULL) {
+        printf("[ERROR] Memory allocation failed\n");
         return;
     }
 
-    fseek(src, 0, SEEK_END);
-    long fileSize = ftell(src);
-    rewind(src);
+    snprintf(sourcePath, sourceLen, "%s/%s", sourceDir, filename);
+    snprintf(destPath, destLen, "%s/%s", BACKUP_DIR, filename);
+
+    FILE *srcFile = fopen(sourcePath, "rb");
+    if (srcFile == NULL) {
+        printf("[ERROR] File not found: %s\n", sourcePath);
+        free(sourcePath);
+        free(destPath);
+        return;
+    }
+
+    fseek(srcFile, 0, SEEK_END);
+    long fileSize = ftell(srcFile);
+    rewind(srcFile);
 
     if (fileSize == 0) {
         printf("[WARNING] File is empty, skipping: %s\n", filename);
-        fclose(src);
+        fclose(srcFile);
+        free(sourcePath);
+        free(destPath);
         return;
     }
 
-    FILE *dst = fopen(destPath, "wb");
-    if (dst == NULL) {
+    FILE *destFile = fopen(destPath, "wb");
+    if (destFile == NULL) {
         printf("[ERROR] Could not create backup file: %s\n", destPath);
-        fclose(src);
+        fclose(srcFile);
+        free(sourcePath);
+        free(destPath);
         return;
     }
 
     char srcFileContent[FILE_CHUNK_SIZE];
     size_t numberOfBytes;
 
-    while ((numberOfBytes = fread(srcFileContent, 1, FILE_CHUNK_SIZE, src)) > 0) {
-        fwrite(srcFileContent, 1, numberOfBytes, dst);
+    while ((numberOfBytes = fread(srcFileContent, 1, FILE_CHUNK_SIZE, srcFile)) > 0) {
+        fwrite(srcFileContent, 1, numberOfBytes, destFile);
     }
 
-    fclose(src);
-    fclose(dst);
+    fclose(srcFile);
+    fclose(destFile);
 
     printf("[SUCCESS] File copied: %s -> %s\n", sourcePath, destPath);
-}
 
-int main() {
-
-    char folder[] = "filesToScan";
-
-    printf("=== Backup Module Test ===\n\n");
-
-    printf("Test 1: Normal file\n");
-    backup_file(folder, "file1.txt");
-
-    printf("\nTest 2: File that does not exist\n");
-    backup_file(folder, "file4.txt");
-
-    printf("\nTest 3: Empty file\n");
-    backup_file(folder, "empty.txt");
-
-    printf("\n=== Done ===\n");
-    return 0;
+    free(sourcePath);
+    free(destPath);
 }
