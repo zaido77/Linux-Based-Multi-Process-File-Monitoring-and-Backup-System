@@ -9,11 +9,11 @@ void log_file_info(FileInfo fileInfo)
 
     if (fp == NULL)
     {
-        printf("[ERROR] opening report.txt file failed\n");
+        printf("[ERROR] opening report.txt file failed");
         return;
     }
 
-    fprintf(fp, "File: %s | Size: %ld bytes | Timestamp: %s\n", 
+    fprintf(fp, "File: %s | Size: %ld bytes | Timestamp: %s",
         fileInfo.filename, fileInfo.size, fileInfo.timestamp);
 
     fclose(fp);
