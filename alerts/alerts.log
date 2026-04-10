@@ -1,0 +1,12 @@
+[10/04/2026 15:30:07] [Parent] Sending file info: file2.txt
+[10/04/2026 15:30:07] [Parent] Sending file info: file3.txt
+[10/04/2026 15:30:07] [Child] Received file: file2.txt (36 bytes)
+[10/04/2026 15:30:07] [Parent] Sending file info: file1.txt
+[10/04/2026 15:30:07] [Child] Received file: file3.txt (42 bytes)
+[10/04/2026 15:30:07] [Parent] Sending file info: empty.txt
+[10/04/2026 15:30:07] [Parent] Sending file info: error.txt
+[10/04/2026 15:30:07] [Child] Received file: file1.txt (28 bytes)
+[10/04/2026 15:30:07] [Child] Received file: empty.txt (0 bytes)
+[10/04/2026 15:30:07] [Child] Received file: error.txt (44 bytes)
+[10/04/2026 15:30:07] [Child] All files received. Child process exiting.
+[10/04/2026 15:30:07] [Parent] All files sent. Parent process exiting.

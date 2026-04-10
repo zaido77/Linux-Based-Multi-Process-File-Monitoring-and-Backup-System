@@ -1,0 +1,29 @@
+------------------------------------------------
+Running Monitor System on [./filesToScan]
+[Fri Apr 10 15:30:07 2026]
+------------------------------------------------
+File: file2.txt | Size: 36 bytes | Timestamp: Mon Apr  6 21:37:56 2026
+File: file3.txt | Size: 42 bytes | Timestamp: Mon Apr  6 21:38:11 2026
+File: file1.txt | Size: 28 bytes | Timestamp: Mon Apr  6 21:37:41 2026
+File: empty.txt | Size: 0 bytes | Timestamp: Thu Apr  9 13:58:37 2026
+File: error.txt | Size: 44 bytes | Timestamp: Mon Apr  6 22:07:17 2026
+[Child] Received file: file2.txt (36 bytes)
+[Child] Received file: file3.txt (42 bytes)
+[Child] Received file: file1.txt (28 bytes)
+[Child] Received file: empty.txt (0 bytes)
+[Child] Received file: error.txt (44 bytes)
+[Child] All files received. Child process exiting.
+[Parent] Sending file info: file2.txt
+[SUCCESS] File copied: ./filesToScan/file2.txt -> backup/file2.txt
+[Parent] Sending file info: file3.txt
+[SUCCESS] File copied: ./filesToScan/file3.txt -> backup/file3.txt
+[Parent] Sending file info: file1.txt
+[SUCCESS] File copied: ./filesToScan/file1.txt -> backup/file1.txt
+[Parent] Sending file info: empty.txt
+[WARNING] File is empty, skipping: empty.txt
+[Parent] Sending file info: error.txt
+[SUCCESS] File copied: ./filesToScan/error.txt -> backup/error.txt
+[Parent] All files sent. Parent process exiting.
+------------------------------------------------
+End of System
+------------------------------------------------
