@@ -1,7 +1,7 @@
 # Linux-Based Multi-Process File Monitoring and Backup System
 
 ## Overview
-The **Linux-Based Multi-Process File Monitoring and Backup System** is a low-level systems programming project designed to automate the detection and archiving of text-based data. 
+The **Linux-Based Multi-Process File Monitoring and Backup System** is a Canadian University Dubai (CUD) low-level systems programming project designed to automate the detection and archiving of text-based data. 
 
 The system leverages a parent-child concurrent architecture to separate concerns between file system scanning and event logging. By utilizing Unix Pipes (IPC) and signal handling, the system provides a robust environment for monitoring file changes in real-time, validating file integrity, and maintaining backup repository.
 
